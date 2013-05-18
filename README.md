@@ -8,7 +8,7 @@ Installation
 
 Install Vagrant 1.2.2
 Install Virtual Box 4.2.12
-Clone the repository git clone https://github.com/danielcsgomes/vagrant-puppet-python-mongo.git
+Clone the repository git clone https://github.com/joaquimserafim/vagrant-nodejs-redis-mongodb.git
 
 Run - vagrant up
 SSH - vagrant ssh
