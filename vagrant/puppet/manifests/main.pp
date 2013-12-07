@@ -68,9 +68,7 @@ class mongodb {
   }
 }
 
-class { 'redis':
-  version => '2.6.13',
-}
+class { 'redis': }
 
 include apt_update
 include othertools
