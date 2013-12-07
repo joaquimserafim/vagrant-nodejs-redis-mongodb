@@ -21,7 +21,7 @@ mongo 192.168.33.10
 
 
 Puppet Manifest will install:
-[Nodejs v0.10.\*, Redis 2.82.2, MongoDB 2.4.\*, wget, git, vim, htop]
+[Nodejs v0.10.\*, Redis 2.8.2, MongoDB 2.4.\*, wget, git, vim, htop]
 
 
 
