@@ -41,7 +41,7 @@ class node-js {
   exec { "npm-update" :
       cwd => "/vagrant",
       command => "npm -g update",
-      onlyif => ["test -d /vag rant/node_modules"],
+      onlyif => ["test -d /vagrant/node_modules"],
       path => ["/bin", "/usr/bin"],
       require => Package['nodejs']
   }
