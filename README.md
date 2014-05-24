@@ -26,6 +26,3 @@ Puppet Manifest will install:
 
 
 Good hacking!!!!!!!!
-
-
-thanks to Daniel Gomes (https://github.com/danielcsgomes)
