@@ -53,23 +53,23 @@ class node-js {
 }
 
 class mongodb {
-  exec { "10genKeys":
-    command => "sudo apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10",
+  exec { "mongodbKeys":
+    command => "sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10",
     path => ["/bin", "/usr/bin"],
     notify => Exec["aptGetUpdate"],
-    unless => "apt-key list | grep 10gen"
+    unless => "apt-key list | grep mongodb"
   }
 
-  file { "10gen.list":
-    path => "/etc/apt/sources.list.d/10gen.list",
+  file { "mongodb.list":
+    path => "/etc/apt/sources.list.d/mongodb.list",
     ensure => file,
-    content => "deb http://downloads-distro.mongodb.org/repo/debian-sysvinit dist 10gen",
-    notify => Exec["10genKeys"]
+    content => "deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen",
+    notify => Exec["mongodbKeys"]
   }
 
-  package { "mongodb-10gen":
+  package { "mongodb-org":
     ensure => present,
-    require => [Exec["aptGetUpdate"],File["10gen.list"]]
+    require => [Exec["aptGetUpdate"],File["mongodb.list"]]
   }
 }
 
