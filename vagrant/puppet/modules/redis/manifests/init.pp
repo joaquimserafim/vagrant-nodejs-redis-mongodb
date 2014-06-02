@@ -80,7 +80,7 @@
 class redis (
   $redis_port = '6379',
   $redis_bind_address = false,
-  $version = '2.8.2',
+  $version = '2.8.9',
   $redis_src_dir = '/opt/redis-src',
   $redis_bin_dir = '/opt/redis',
   $redis_max_memory = '4gb',

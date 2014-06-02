@@ -25,6 +25,11 @@ class othertools {
         ensure => present,
         require => Exec["aptGetUpdate"]
     }
+
+    package { "g++":
+        ensure => present,
+        require => Exec["aptGetUpdate"]
+    }
 }
 
 class node-js {
