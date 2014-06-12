@@ -1,16 +1,17 @@
 #!/bin/sh
 #Configurations injected by install_server below....
 
-REDIS_PORT="<%= redis_port %>"
-REDIS_BIND_ADDRESS="<%= redis_bind_address ? redis_bind_address : '127.0.0.1' %>"
+REDIS_PORT="<%= @redis_port %>"
+REDIS_BIND_ADDRESS="<%= @redis_bind_address ? @redis_bind_address : '127.0.0.1' %>"
 
-EXEC=<%= redis_bin_dir %>/bin/redis-server
-CLIEXEC="<%= redis_bin_dir %>/bin/redis-cli -h $REDIS_BIND_ADDRESS -p $REDIS_PORT <%= redis_password ? '-a ' + redis_password : '' %>"
+EXEC=<%= scope.lookupvar('redis::redis_bin_dir') %>/bin/redis-server
+CLIEXEC="<%= scope.lookupvar('redis::redis_bin_dir') %>/bin/redis-cli -h $REDIS_BIND_ADDRESS -p $REDIS_PORT <%= @redis_password ? '-a ' + @redis_password : '' %>"
 PIDFILE="/var/run/redis_${REDIS_PORT}.pid"
 CONF="/etc/redis/${REDIS_PORT}.conf"
 
 ###############
 
+# chkconfig: 2345 95 20
 # description: redis_<%= redis_port %> is the redis daemon.
 ### BEGIN INIT INFO
 # Provides: redis_<%= redis_port %>

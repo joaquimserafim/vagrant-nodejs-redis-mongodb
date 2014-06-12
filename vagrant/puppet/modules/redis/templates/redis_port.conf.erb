@@ -16,16 +16,16 @@ daemonize yes
 
 # When running daemonized, Redis writes a pid file in /var/run/redis.pid by
 # default. You can specify a custom pid file location here.
-pidfile /var/run/redis_<%= redis_port %>.pid
+pidfile /var/run/redis_<%= @redis_port %>.pid
 
 # Accept connections on the specified port, default is 6379.
 # If port 0 is specified Redis will not listen on a TCP socket.
-port <%= redis_port %>
+port <%= @redis_port %>
 
 # If you want you can bind a single interface, if the bind option is not
 # specified all the interfaces will listen for incoming connections.
-<% if redis_bind_address %>
-bind <%= redis_bind_address %>
+<% if @redis_bind_address %>
+bind <%= @redis_bind_address %>
 <% end %>
 
 # Specify the path for the unix socket that will be used to listen for
@@ -35,7 +35,7 @@ bind <%= redis_bind_address %>
 # unixsocket /tmp/redis.sock
 
 # Close the connection after a client is idle for N seconds (0 to disable)
-timeout <%= redis_timeout %>
+timeout <%= @redis_timeout %>
 
 # Set server verbosity to 'debug'
 # it can be one of:
@@ -43,12 +43,12 @@ timeout <%= redis_timeout %>
 # verbose (many rarely useful info, but not a mess like the debug level)
 # notice (moderately verbose, what you want in production probably)
 # warning (only very important / critical messages are logged)
-loglevel <%= redis_loglevel %>
+loglevel <%= @redis_loglevel %>
 
 # Specify the log file name. Also 'stdout' can be used to force
 # Redis to log on the standard output. Note that if you use standard
 # output for logging but daemonize, logs will be sent to /dev/null
-logfile /var/log/redis_<%= redis_port %>.log
+logfile /var/log/redis_<%= @redis_port %>.log
 
 # To enable logging to the system logger, just set 'syslog-enabled' to yes,
 # and optionally update the other syslog parameters to suit your needs.
@@ -63,7 +63,7 @@ logfile /var/log/redis_<%= redis_port %>.log
 # Set the number of databases. The default database is DB 0, you can select
 # a different one on a per-connection basis using SELECT <dbid> where
 # dbid is a number between 0 and 'databases'-1
-databases <%= redis_databases %>
+databases <%= @redis_databases %>
 
 ################################ SNAPSHOTTING  #################################
 #
@@ -102,7 +102,7 @@ dbfilename dump.rdb
 # Also the Append Only File will be created inside this directory.
 #
 # Note that you must specify a directory here, not a file name.
-dir /var/lib/redis/<%= redis_port %>
+dir /var/lib/redis/<%= @redis_port %>
 
 ################################# REPLICATION #################################
 
@@ -146,8 +146,8 @@ slave-serve-stale-data yes
 # 150k passwords per second against a good box. This means that you should
 # use a very strong password otherwise it will be very easy to break.
 #
-<% if redis_password %>
-requirepass <%= redis_password %>
+<% if @redis_password %>
+requirepass <%= @redis_password %>
 <% end %>
 
 # Command renaming.
@@ -175,8 +175,8 @@ requirepass <%= redis_password %>
 # an error 'max number of clients reached'.
 #
 # maxclients 128
-<% if real_redis_max_clients %>
-maxclients <%= real_redis_max_clients %>
+<% if @real_redis_max_clients %>
+maxclients <%= @real_redis_max_clients %>
 <% end %>
 
 # Don't use more memory than the specified amount of bytes.
@@ -197,7 +197,7 @@ maxclients <%= real_redis_max_clients %>
 # errors for write operations, and this may even lead to DB inconsistency.
 #
 # maxmemory <bytes>
-maxmemory <%= redis_max_memory %>
+maxmemory <%= @redis_max_memory %>
 
 # MAXMEMORY POLICY: how Redis will select what to remove when maxmemory
 # is reached? You can select among five behavior:
@@ -342,11 +342,11 @@ auto-aof-rewrite-min-size 64mb
 # The following time is expressed in microseconds, so 1000000 is equivalent
 # to one second. Note that a negative number disables the slow log, while
 # a value of zero forces the logging of every command.
-slowlog-log-slower-than <%= redis_slowlog_log_slower_than %>
+slowlog-log-slower-than <%= @redis_slowlog_log_slower_than %>
 
 # There is no limit to this length. Just be aware that it will consume memory.
 # You can reclaim memory used by the slow log with SLOWLOG RESET.
-slowlog-max-len <%= redis_slowlog_max_len %>
+slowlog-max-len <%= @redis_slowlog_max_len %>
 
 ############################### ADVANCED CONFIG ###############################
 
@@ -354,10 +354,10 @@ slowlog-max-len <%= redis_slowlog_max_len %>
 # have at max a given numer of elements, and the biggest element does not
 # exceed a given threshold. You can configure this limits with the following
 # configuration directives.
-<% if version =~ /^2\.4\.\d+$/ %>
+<% if @version =~ /^2\.4\.\d+$/ %>
 hash-max-zipmap-entries 512
 hash-max-zipmap-value 64
-<% elsif version =~ /^2\.6\.\d+$/ %>
+<% elsif @version =~ /^2\.6\.\d+$/ %>
 hash-max-ziplist-entries 512
 hash-max-ziplist-value 64
 <% end %>

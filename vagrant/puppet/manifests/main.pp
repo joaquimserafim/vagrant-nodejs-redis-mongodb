@@ -73,10 +73,13 @@ class mongodb {
   }
 }
 
-class { 'redis': }
+
+class redis-cl {
+  class { 'redis': }
+}
 
 include apt_update
 include othertools
 include node-js
 include mongodb
-include redis
+include redis-cl
