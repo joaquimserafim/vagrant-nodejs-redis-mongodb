@@ -32,27 +32,35 @@ class othertools {
     }
 }
 
-class node-js {
-  include apt
-  apt::ppa {
-    'ppa:chris-lea/node.js': notify => Package["nodejs"]
+class nodejs {
+  exec { "git_clone_n":
+    command => "git clone https://github.com/visionmedia/n.git /home/vagrant/n",
+    path => ["/bin", "/usr/bin"],
+    require => [Exec["aptGetUpdate"], Package["git"], Package["curl"], Package["g++"]]
   }
 
-  package { "nodejs" :
-      ensure => latest,
-      require => [Exec["aptGetUpdate"],Class["apt"]]
+  exec { "install_n":
+    command => "make install",
+    path => ["/bin", "/usr/bin"],
+    cwd => "/home/vagrant/n",
+    require => Exec["git_clone_n"]
   }
 
-  exec { "npm-update" :
-      cwd => "/vagrant",
-      command => "npm -g update",
-      onlyif => ["test -d /vagrant/node_modules"],
-      path => ["/bin", "/usr/bin"],
-      require => Package['nodejs']
+  exec { "install_node":
+    command => "n stable",
+    path => ["/bin", "/usr/bin", "/usr/local/bin"],  
+    require => [Exec["git_clone_n"], Exec["install_n"]]
   }
 }
 
 class mongodb {
+  class {'::mongodb::server':
+    port    => 27018,
+    verbose => true,
+  }   
+}
+
+class mongodb1 {
   exec { "mongodbKeys":
     command => "sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10",
     path => ["/bin", "/usr/bin"],
@@ -80,6 +88,6 @@ class redis-cl {
 
 include apt_update
 include othertools
-include node-js
-include mongodb
-include redis-cl
+include nodejs
+#include mongodb1
+#include redis-cl
