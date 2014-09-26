@@ -89,5 +89,5 @@ class redis-cl {
 include apt_update
 include othertools
 include nodejs
-#include mongodb1
-#include redis-cl
+include mongodb1
+include redis-cl
