@@ -41,7 +41,6 @@ Vagrant.configure("2") do |config|
     puppet.manifest_file  = "main.pp"
     puppet.options        = [
                               '--verbose',
-                              '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
                               #'--debug',
                             ]
   end
