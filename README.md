@@ -1,7 +1,7 @@
 <h2>Vagrant and Puppet configuration for NodeJS, Redis & MongoDB</h2>
 
 Vagrant configuration with puppet to create a Virtual Box machine with 
-Ubuntu Server 12.10, Nodejs / Redis / MongoDB
+Ubuntu Server 14.04, Nodejs / Redis / MongoDB
 
 
 
