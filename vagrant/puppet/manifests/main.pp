@@ -62,7 +62,8 @@ class mongodb {
     port    => 27017,
     verbose => true,
     ensure  => "present"
-  }   
+  }->
+  class {'::mongodb::client': }
 }
 
 class redis-cl {
