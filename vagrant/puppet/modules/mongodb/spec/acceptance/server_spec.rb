@@ -10,9 +10,9 @@ describe 'mongodb::server class' do
         service_name = 'mongod'
         config_file  = '/etc/mongod.conf'
       when 'Debian'
-        package_name = 'mongodbdb-org-10gen'
-        service_name = 'mongodb'
-        config_file  = '/etc/mongodb.conf'
+        package_name = 'mongodb-org-server'
+        service_name = 'mongod'
+        config_file  = '/etc/mongod.conf'
       end
     else
       case fact('osfamily')
@@ -43,19 +43,11 @@ describe 'mongodb::server class' do
       end
 
       it 'should work with no errors' do
-        case fact('osfamily')
-        when 'RedHat'
-          pp = <<-EOS
-            class { 'mongodb::globals': manage_package_repo => #{tengen}, }
-            -> class { 'mongodb::server': }
-            -> class { 'mongodb::client': }
-          EOS
-        when 'Debian'
-          pp = <<-EOS
-            class { 'mongodb::globals': manage_package_repo => #{tengen}, }
-            -> class { 'mongodb::server': }
-          EOS
-        end
+        pp = <<-EOS
+          class { 'mongodb::globals': manage_package_repo => #{tengen}, }
+          -> class { 'mongodb::server': }
+          -> class { 'mongodb::client': }
+        EOS
 
         apply_manifest(pp, :catch_failures => true)
         apply_manifest(pp, :catch_changes  => true)
@@ -75,10 +67,7 @@ describe 'mongodb::server class' do
       end
 
       describe port(27017) do
-        it do
-          sleep(20)
-          should be_listening
-        end
+        it { should be_listening }
       end
 
       describe command(client_name) do
@@ -93,6 +82,7 @@ describe 'mongodb::server class' do
         pp = <<-EOS
           class { 'mongodb::globals': manage_package_repo => #{tengen}, }
           -> class { 'mongodb::server': port => 27018, }
+          -> class { 'mongodb::client': }
         EOS
 
         apply_manifest(pp, :catch_failures => true)
@@ -100,8 +90,7 @@ describe 'mongodb::server class' do
       end
 
       describe port(27018) do
-        sleep(20)
-        it { sleep 5 ; should be_listening }
+        it { should be_listening }
       end
     end
 

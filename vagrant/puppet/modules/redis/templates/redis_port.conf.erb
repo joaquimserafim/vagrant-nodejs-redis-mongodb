@@ -81,9 +81,9 @@ databases <%= @redis_databases %>
 #
 #   Note: you can disable saving at all commenting all the save lines.
 
-save 900 1
-save 300 10
-save 60 10000
+<% if @redis_saves %>
+<%= @redis_saves.join("\n") %>
+<% end -%>
 
 # Compress string objects using LZF when dump .rdb databases?
 # For default that's set to 'yes' as it's almost always a win.
@@ -357,7 +357,7 @@ slowlog-max-len <%= @redis_slowlog_max_len %>
 <% if @version =~ /^2\.4\.\d+$/ %>
 hash-max-zipmap-entries 512
 hash-max-zipmap-value 64
-<% elsif @version =~ /^2\.6\.\d+$/ %>
+<% elsif @version =~ /^2\.[68]\.\d+$/ %>
 hash-max-ziplist-entries 512
 hash-max-ziplist-value 64
 <% end %>

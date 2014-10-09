@@ -452,7 +452,7 @@ Array of 'host:port' of the replicaset members.
 
 It currently only adds members without options.
 
-## Limitation
+## Limitations
 
 This module has been tested on:
 

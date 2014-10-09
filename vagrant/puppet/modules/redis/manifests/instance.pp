@@ -12,12 +12,16 @@
 #   Address to bind to.
 #   Default: false, which binds to all interfaces
 #
+# [*redis_max_memory*]
+#   Max memory usage configuration.
+#   Default: 4gb
+#
 # [*redis_max_clients*]
 #   Set the redis config value maxclients. If no value provided, it is
-#   not included in the configuration for 2.6 and set to 0 (unlimited)
+#   not included in the configuration for 2.6+ and set to 0 (unlimited)
 #   for 2.4.
 #   Default: 0 (2.4)
-#   Default: nil (2.6)
+#   Default: nil (2.6+)
 #
 # [*redis_timeout*]
 #   Set the redis config value timeout (seconds).
@@ -41,8 +45,12 @@
 #   Default: 1024
 #
 # [*redis_password*]
-#   Password used by AUTH command. Will be setted is its not nil.
+#   Password used by AUTH command. Will be setted if it is not nil.
 #   Default: nil
+#
+# [*redis_saves*]
+#   Redis snapshotting parameters. Set to false for no snapshots.
+#   Default: ['save 900 1', 'save 300 10', 'save 60 10000']
 #
 # === Examples
 #
@@ -69,7 +77,8 @@ define redis::instance (
   $redis_databases = $redis::params::redis_databases,
   $redis_slowlog_log_slower_than = $redis::params::redis_slowlog_log_slower_than,
   $redis_slowlog_max_len = $redis::params::redis_slowlog_max_len,
-  $redis_password = $redis::params::redis_password
+  $redis_password = $redis::params::redis_password,
+  $redis_saves = $redis::params::redis_saves
   ) {
 
   # Using Exec as a dependency here to avoid dependency cyclying when doing
@@ -79,9 +88,22 @@ define redis::instance (
 
   $version = $redis::version
 
-
-  $real_redis_max_clients = $redis_max_clients
-
+  case $version {
+    /^2\.4\.\d+$/: {
+      if ($redis_max_clients == false) {
+        $real_redis_max_clients = 0
+      }
+      else {
+        $real_redis_max_clients = $redis_max_clients
+      }
+    }
+    /^2\.[68]\.\d+$/: {
+      $real_redis_max_clients = $redis_max_clients
+    }
+    default: {
+      fail("Invalid redis version, ${version}. It must match 2.4.\\d+ or 2.[68].\\d+.")
+    }
+  }
 
   file { "redis-lib-port-${redis_port}":
     ensure => directory,

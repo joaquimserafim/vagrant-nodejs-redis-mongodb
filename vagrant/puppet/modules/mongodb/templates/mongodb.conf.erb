@@ -22,7 +22,7 @@ port = <%= @port %>
 dbpath=<%= @dbpath %>
 <% if @pidfilepath -%>
 # location of pidfile
-pidfilepath = <%= @pidfilepath %>
+pidfilepath=<%= @pidfilepath %>
 <% end -%>
 <% if @nojournal and not @journal -%>
 # Disables write-ahead journaling
@@ -160,9 +160,6 @@ slowms = <%= @slowms %>
 <% if @keyfile -%>
 # Specify the path to a key file to store authentication information.
 keyFile = <%= @keyfile %>
-<% end -%>
-<% if @directoryperdb -%>
-directoryperdb = <%= @directoryperdb %>
 <% end -%>
 <% if @set_parameter -%>
 setParameter = <%= @set_parameter %>

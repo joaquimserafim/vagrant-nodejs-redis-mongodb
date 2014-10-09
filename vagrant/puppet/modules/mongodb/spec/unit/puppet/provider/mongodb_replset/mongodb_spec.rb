@@ -44,7 +44,7 @@ describe Puppet::Type.type(:mongodb_replset).provider(:mongo) do
 }
 EOT
         provider.class.prefetch(resources)
-        resource.provider.exists?.should be_false
+        resource.provider.exists?.should eql false
       end
     end
 
@@ -58,7 +58,7 @@ EOT
 }
 EOT
         provider.class.prefetch(resources)
-        resource.provider.exists?.should be_true
+        resource.provider.exists?.should eql true
       end
     end
   end

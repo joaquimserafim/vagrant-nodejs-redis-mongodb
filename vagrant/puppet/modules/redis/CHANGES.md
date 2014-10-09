@@ -1,6 +1,21 @@
 redis module for puppet
 =======================
 
+0.10.0
+------
+Default version to install is 2.8.12.
+Expose new parameters to redis class. - @brucem
+Add parameters to configure snapshotting. - @kjoconnor
+Fix deprecation warning in template. - @aadamovich
+Add support for redis 2.8. - @rickard-von-essen
+Add versions to module dependencies. - @yjpa7145
+Updated download URL. - @coffeejunk
+Adds user and group configuration parameters. - @yjpa7145
+Fix rubygems deprecation warning. - @yjpa7145
+Disable some puppet lint warnings.
+Add chkconfig to init file. - @antonbabenko
+Add redis::instance define to allow multiple instances. - @evanstachowiak
+
 0.0.9
 -----
 Use maestrodev/wget and puppetlabs/gcc to replace some common package dependencies. - @garethr

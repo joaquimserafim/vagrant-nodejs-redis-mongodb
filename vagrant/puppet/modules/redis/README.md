@@ -7,7 +7,7 @@ Install and configure redis.
 
 Usage
 -----
-Installs redis server and client with reasonable defaults (version 2.4.13 is included in the module).
+Installs redis server and client with reasonable defaults.
 
 ```puppet
 include redis
@@ -36,6 +36,17 @@ redis::instance { 'redis-6900':
   redis_password     => hiera('redis_password'),
   redis_max_memory   => '1gb',
 }
+```
+
+Development
+-----------
+
+To run the linter and spec tests locally:
+
+```bash
+bundle install --gemfile .gemfile
+rake lint
+rake spec
 ```
 
 Authors

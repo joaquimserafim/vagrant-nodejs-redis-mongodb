@@ -28,7 +28,7 @@ describe Puppet::Type.type(:mongodb_database).provider(:mongodb) do
   describe 'exists?' do
     it 'checks if database exists' do
       provider.expects(:mongo).at_least(2).returns("db1,new_database,db2")
-      provider.exists?.should be_true
+      provider.exists?.should eql true
     end
   end
 

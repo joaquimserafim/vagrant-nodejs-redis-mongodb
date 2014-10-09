@@ -31,7 +31,7 @@ describe Puppet::Type.type(:mongodb_user).provider(:mongodb) do
   describe 'exists?' do
     it 'checks if user exists' do
       provider.expects(:mongo).at_least(2).returns("1")
-      provider.exists?.should be_true
+      provider.exists?.should eql true
     end
   end
 

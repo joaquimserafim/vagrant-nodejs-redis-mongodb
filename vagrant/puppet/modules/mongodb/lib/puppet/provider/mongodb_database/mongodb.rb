@@ -30,7 +30,7 @@ Puppet::Type.type(:mongodb_database).provide(:mongodb) do
 
   def exists?
     block_until_mongodb(@resource[:tries])
-    mongo("--quiet", "--eval", 'db.getMongo().getDBNames()').split(",").include?(@resource[:name])
+    mongo("--quiet", "--eval", 'db.getMongo().getDBNames()').chomp.split(",").include?(@resource[:name])
   end
 
 end

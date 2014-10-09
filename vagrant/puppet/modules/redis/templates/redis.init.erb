@@ -12,14 +12,14 @@ CONF="/etc/redis/${REDIS_PORT}.conf"
 ###############
 
 # chkconfig: 2345 95 20
-# description: redis_<%= redis_port %> is the redis daemon.
+# description: redis_<%= @redis_port %> is the redis daemon.
 ### BEGIN INIT INFO
-# Provides: redis_<%= redis_port %>
+# Provides: redis_<%= @redis_port %>
 # Required-Start: 
 # Required-Stop: 
 # Should-Start: 
 # Should-Stop: 
-# Short-Description: start and stop redis_<%= redis_port %>
+# Short-Description: start and stop redis_<%= @redis_port %>
 # Description: Redis daemon
 ### END INIT INFO
 
