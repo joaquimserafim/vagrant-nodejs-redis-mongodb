@@ -5,9 +5,9 @@ Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu-server-trusty"
   config.vm.box_url = "https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box"
 
-  config.vm.network :forwarded_port, guest: 3000, host: 3000
-  config.vm.network :forwarded_port, guest: 27017, host: 27017
-  config.vm.network :forwarded_port, guest: 6379, host: 6379
+  config.vm.network :forwarded_port, guest: 3000, host: 3000, auto_correct: true
+  config.vm.network :forwarded_port, guest: 27017, host: 27017, auto_correct: true
+  config.vm.network :forwarded_port, guest: 6379, host: 6379, auto_correct: true
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
